@@ -1,0 +1,3 @@
+wallet/build
+wallet/node_modules
+wallet/.secrets.json
