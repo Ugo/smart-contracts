@@ -5,6 +5,7 @@ const Rep = artifacts.require('mocks/Rep.sol');
 const Zrx = artifacts.require('mocks/Zrx.sol');
 const Dex = artifacts.require('Dex.sol');
 
+// enum need to be defined this way in the tests
 const SIDE = {
   BUY: 0,
   SELL: 1
@@ -18,7 +19,7 @@ contract('Dex', (accounts) => {
     .map(ticker => web3.utils.fromAscii(ticker));
 
   beforeEach(async() => {
-      // deploy all contracts
+      // deploy all contracts in batch
       ([dai, bat, rep, zrx] = await Promise.all([
         Dai.new(),
         Bat.new(),
@@ -27,7 +28,7 @@ contract('Dex', (accounts) => {
       ]));
       dex = await Dex.new();
       await Promise.all([
-        // add all tokens to the dex
+        // add all tokens to the dex in batch
         dex.addToken(DAI, dai.address),
         dex.addToken(BAT, bat.address),
         dex.addToken(REP, rep.address),
@@ -35,6 +36,7 @@ contract('Dex', (accounts) => {
       ]);
 
       const amount = web3.utils.toWei('1000');
+      // define a method to fill up traders wallet with tokens
       const seedTokenBalance = async (token, trader) => {
         await token.faucet(trader, amount);
         await token.approve(
