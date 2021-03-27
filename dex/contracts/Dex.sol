@@ -111,8 +111,10 @@ contract Dex {
             );
         }
 
+        // `storage` since the modifications should stay onchain
         Order[] storage orders = orderBook[ticker][uint(side)];
 
+        // add the order at the end of the array
         orders.push(Order(
             nextOrderId,
             msg.sender,
@@ -124,7 +126,9 @@ contract Dex {
             now
         ));
 
-        // keep the list of orders sorted (inc for buy, decr for sell)
+        // keep the list of orders sorted
+        // decr price for buy: the most expensive buy will go first
+        // incr price for sell: the cheapest sell will go first
         uint i = orders.length > 0 ? orders.length - 1 : 0;
         while (i > 0) {
             if (side == Side.BUY && orders[i-1].price > orders[i].price) {

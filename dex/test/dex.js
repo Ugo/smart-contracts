@@ -18,6 +18,7 @@ contract('Dex', (accounts) => {
     .map(ticker => web3.utils.fromAscii(ticker));
 
   beforeEach(async() => {
+      // deploy all contracts
       ([dai, bat, rep, zrx] = await Promise.all([
         Dai.new(),
         Bat.new(),
@@ -26,6 +27,7 @@ contract('Dex', (accounts) => {
       ]));
       dex = await Dex.new();
       await Promise.all([
+        // add all tokens to the dex
         dex.addToken(DAI, dai.address),
         dex.addToken(BAT, bat.address),
         dex.addToken(REP, rep.address),
@@ -81,18 +83,19 @@ contract('Dex', (accounts) => {
     //// TESTING WITHDRAW ////
     it('should withdraw tokens', async () => {
       const amount = web3.utils.toWei('100');
+      // deposit first
       await dex.deposit(
         amount,
         DAI,
         {from: trader1}
       );
-
+      // then withdraw the same amount
       await dex.withdraw(
         amount,
         DAI,
         {from: trader1}
       );
-
+      // then check values in dex and for the trader
       const [balanceDex, balanceDai] = await Promise.all([
         dex.traderBalances(trader1, DAI),
         dai.balanceOf(trader1)
@@ -130,7 +133,7 @@ contract('Dex', (accounts) => {
       );
     });
 
-    //// TESTING CREATE MARKET LIMIT ////
+    //// TESTING CREATE MARKET LIMIT ORDER ////
     it('should create limit order', async () => {
       await dex.deposit(
         web3.utils.toWei('100'),
@@ -138,6 +141,7 @@ contract('Dex', (accounts) => {
         {from: trader1}
       );
 
+      // create a first order
       await dex.createLimitOrder(
         REP,
         web3.utils.toWei('10'),
@@ -146,6 +150,7 @@ contract('Dex', (accounts) => {
         {from: trader1}
       );
 
+      // check that the order is correct
       let buyOrders = await dex.getOrders(REP, SIDE.BUY);
       let sellOrders = await dex.getOrders(REP, SIDE.SELL);
       assert(buyOrders.length === 1);
@@ -161,6 +166,7 @@ contract('Dex', (accounts) => {
         {from: trader2}
       );
 
+      // create another order with same token and same side
       await dex.createLimitOrder(
         REP,
         web3.utils.toWei('10'),
@@ -169,6 +175,7 @@ contract('Dex', (accounts) => {
         {from: trader2}
       );
 
+      // check that the sorting order of the orders is correct
       buyOrders = await dex.getOrders(REP, SIDE.BUY);
       sellOrders = await dex.getOrders(REP, SIDE.SELL);
       assert(buyOrders.length === 2);
@@ -182,7 +189,7 @@ contract('Dex', (accounts) => {
       assert(buyOrders[1].amount === web3.utils.toWei('10'));
       assert(sellOrders.length === 0);
 
-
+      // similar test with a third order
       await dex.createLimitOrder(
         REP,
         web3.utils.toWei('10'),
@@ -264,6 +271,7 @@ contract('Dex', (accounts) => {
       );
     });
 
+    //// TESTING MARKET ORDER ////
     it('Should create market order & match against existing limit order', async () => {
       await dex.deposit(
         web3.utils.toWei('100'),
