@@ -1,3 +1,6 @@
 wallet/build
 wallet/node_modules
 wallet/.secrets.json
+
+dex/build
+dex/node_modules
