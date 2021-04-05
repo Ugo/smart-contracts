@@ -342,6 +342,7 @@ contract('Dex', (accounts) => {
     });
 
     it('should not create market order if token balance is too low', async () => {
+      // deposit 99 but try to create a market order of 100
       await dex.deposit(
         web3.utils.toWei('99'),
         REP,
