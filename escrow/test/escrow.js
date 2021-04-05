@@ -14,9 +14,11 @@ const assertError = async (promise, error) => {
 contract('Escrow', (accounts) => {
     let escrow;
     const [lawyer, payer, recipient] = accounts;
+
+    // by default the contract is deployed by the first account (lawyer here) 
+    // who will become the admin of the contract
     beforeEach(async () => {
       escrow = await Escrow.new(payer, recipient, 1000);
-      // await web3.eth.sendTransaction({from: accounts[0], to: wallet.address, value: 1000});
     });
 
     it('should deposit', async () => {
@@ -52,6 +54,20 @@ contract('Escrow', (accounts) => {
 
     it('should release the funds', async () => {
       await escrow.deposit({from: payer, value: 1000});
+      const initialRecipientBalance = web3.utils.toBN(
+        await web3.eth.getBalance(recipient)
+      );
+      await escrow.release({from: lawyer});
+      const finalRecipientBalance = web3.utils.toBN(
+        await web3.eth.getBalance(recipient)
+      );
+      assert(finalRecipientBalance.sub(initialRecipientBalance).toNumber() === 1000);
+    });
+
+    it('should deposit in multiple transactions and the release the funds', async () => {
+      await escrow.deposit({from: payer, value: 300});
+      await escrow.deposit({from: payer, value: 400});
+      await escrow.deposit({from: payer, value: 300});
       const initialRecipientBalance = web3.utils.toBN(
         await web3.eth.getBalance(recipient)
       );
