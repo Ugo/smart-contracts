@@ -4,3 +4,6 @@ wallet/.secrets.json
 
 dex/build
 dex/node_modules
+
+escrow/build
+escrow/node_modules

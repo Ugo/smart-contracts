@@ -1,4 +1,6 @@
-pragma solidity 0.6.3;
+// SPDX-License-Identifier: GPL-3.0
+
+pragma solidity 0.8.0;
 
 contract Escrow {
     address public payer;
@@ -9,8 +11,7 @@ contract Escrow {
     constructor(
         address _payer,
         address payable _recipient,
-        uint _amount) 
-        public {
+        uint _amount) {
             payer = _payer;
             recipient = _recipient;
             lawyer = msg.sender;
