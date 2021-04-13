@@ -56,25 +56,31 @@ function App() {
   }, []);
 
   return (
-    <div id="app">
-     <div>
-       Header
+    <div>
+     
+      <div className="text-center">
+        <h1>Escrow</h1>
       </div>
-      <div>
-        Main part
+      
+      <div class="container">
+        <div class="row align-items-start">
+          <div class="col">
+            <Actors 
+              lawyerAddress={lawyerAddress} 
+              payerAddress={payerAddress} 
+              recipientAddress={recipientAddress}
+            />
+          </div>
+          <div class="col">
+            <Values 
+              balance={balance}
+              neededAmount={neededAmount}
+            />
+          </div>
+        </div>
       </div>
 
-      <Actors 
-        lawyerAddress={lawyerAddress} 
-        payerAddress={payerAddress} 
-        recipientAddress={recipientAddress}
-      />
-
-      <Values 
-        balance={balance}
-        neededAmount={neededAmount}
-      />
-
+      <br/>
       <Deposit 
         deposit={deposit}
       />

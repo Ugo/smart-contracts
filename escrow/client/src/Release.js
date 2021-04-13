@@ -8,8 +8,8 @@ function Release({release}) {
     }
 
     return (
-    <form id="deposit" onSubmit={(e) => onSubmit(e)}>
-        <div className="text-right">
+    <form id="release" onSubmit={(e) => onSubmit(e)}>
+        <div className="text-left">
             <button type="submit" className="btn btn-primary">Release the escrow</button>
         </div>
     </form>
