@@ -10,23 +10,27 @@ function Deposit({deposit}) {
 
     return (
     <form id="deposit" className="form-inline" onSubmit={(e) => onSubmit(e)}>
-        <div class="form-group mb-2">
-            <label htmlFor="amount" className="col-sm-1 col-form-label">Amount to deposit</label>
-        </div>
+        <div className="form-row align-items-center mx-auto">
 
-        <div class="form-group mx-sm-3 mb-2">
-            
-            <label for="amountDeposit" class="sr-only">To deposit</label>
-            <input 
-                id="amount" 
-                type="text" 
-                className="form-control" 
-                onChange={(e) => setAmount(e.target.value)}
-            />
+            <div className="col-auto">
+                <label htmlFor="amount" >Amount to deposit</label>
+            </div>
+
+            <div className="col-auto">
+                
+                <label for="amountDeposit" class="sr-only">To deposit</label>
+                <input 
+                    id="amount" 
+                    type="text" 
+                    className="form-control" 
+                    onChange={(e) => setAmount(e.target.value)}
+                />
+            </div>
+
+            <div class="col-auto">    
+                <button type="submit" className="btn btn-primary">Deposit</button>
+            </div>
         </div>
-            
-        <button type="submit" className="btn btn-primary mb-2">Deposit</button>
-        
     </form>
 
         

@@ -1,16 +1,18 @@
 import React, {useState} from 'react';
 
-function Actors({lawyerAddress, payerAddress, recipientAddress}) {
+function Actors({lawyerAddress, payerAddress, recipientAddress, currentUser}) {
 
   return (
     <div>
-      <h2>List of actors</h2>
+      <h2>Actors</h2>
       <br/>
-      Lawyer address: {lawyerAddress}
+      <b>Lawyer address:</b> {lawyerAddress}
       <br/>
-      Payer address: {payerAddress}
+      <b>Payer address:</b> {payerAddress}
       <br/>
-      Recipient address: {recipientAddress}
+      <b>Recipient address:</b> {recipientAddress}
+      <br/><br/>
+      <b>Your address:</b> {currentUser}
     </div>
   );
 }

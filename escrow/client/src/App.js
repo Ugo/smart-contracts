@@ -59,7 +59,7 @@ function App() {
     <div>
      
       <div className="text-center">
-        <h1>Escrow</h1>
+        <h1>Escrow contract</h1>
       </div>
       
       <div class="container">
@@ -69,6 +69,7 @@ function App() {
               lawyerAddress={lawyerAddress} 
               payerAddress={payerAddress} 
               recipientAddress={recipientAddress}
+              currentUser={accounts}
             />
           </div>
           <div class="col">
@@ -89,6 +90,7 @@ function App() {
         release={release}
       />
 
+      <br />
       <Footer />
     </div>
   );

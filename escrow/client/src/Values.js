@@ -9,6 +9,9 @@ function Values({balance, neededAmount}) {
 
       <h2>Amount needed in the escrow</h2>
       {neededAmount}
+
+      <h2>Remaining amount needed</h2>
+      {neededAmount - balance}
     </div>
   );
 }
