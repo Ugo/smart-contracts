@@ -3,8 +3,8 @@ import React, {useState} from 'react';
 function Actors({lawyerAddress, payerAddress, recipientAddress, currentUser}) {
 
   return (
-    <div>
-      <h2>Actors</h2>
+    <div class="alert alert-success" role="alert">
+      <h3>Actors</h3>
       <br/>
       <b>Lawyer address:</b> {lawyerAddress}
       <br/>
@@ -13,6 +13,12 @@ function Actors({lawyerAddress, payerAddress, recipientAddress, currentUser}) {
       <b>Recipient address:</b> {recipientAddress}
       <br/><br/>
       <b>Your address:</b> {currentUser}
+      <br/><br/>
+      <b>You are the </b> 
+      {currentUser == lawyerAddress ? (<b>lawyer</b>) : null }
+      {currentUser == payerAddress ? (<b>payer</b>) : null }
+      {currentUser == recipientAddress ? (<b>recipient</b>) : null }
+      
     </div>
   );
 }

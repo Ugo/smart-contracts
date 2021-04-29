@@ -6,10 +6,10 @@ import Values from './Values.js';
 import Deposit from './Deposit.js';
 import Release from './Release.js';
 
-function App() {
-  const [web3, setWeb3] = useState(undefined);
-  const [accounts, setAccounts] = useState(undefined);
-  const [escrow, setEscrow] = useState(undefined);
+function App({web3, accounts, escrow}) {
+  
+  
+  // const [escrow, setEscrow] = useState(undefined);
   
   const [lawyerAddress, setLawyerAddress] = useState(undefined);
   const [payerAddress, setPayerAddress] = useState(undefined);
@@ -17,10 +17,17 @@ function App() {
   const [balance, setBalance] = useState(undefined);
   const [neededAmount, setNeededAmount] = useState(undefined);
 
+
+  const getBalance = async () => {
+    const balance = await escrow.methods.balanceOf().call();
+    setBalance(balance);
+  }
+
   const deposit = async amount => {
     await escrow.methods
       .deposit()
       .send({from: accounts[0], value: amount});
+    getBalance();
   }
 
   const release = async amount => {
@@ -31,8 +38,6 @@ function App() {
 
   useEffect(() => {
     const init = async () => {
-      const web3 = await getWeb3();
-      const accounts = await web3.eth.getAccounts();
       const escrow = await getEscrow(web3);
 
       // read the values from the smart contract
@@ -42,9 +47,6 @@ function App() {
       const balance = await escrow.methods.balanceOf().call();
       const neededAmount = await escrow.methods.amount().call();
       
-      setWeb3(web3);
-      setAccounts(accounts);
-      setEscrow(escrow);
       setLawyerAddress(lawyerAddress);
       setPayerAddress(payerAddress);
       setRecipientAddress(recipientAddress);
@@ -82,13 +84,20 @@ function App() {
       </div>
 
       <br/>
-      <Deposit 
-        deposit={deposit}
-      />
+      {accounts == payerAddress ? (
+        <Deposit 
+          deposit={deposit}
+        />
+        ) : null }
+      
 
-      <Release
-        release={release}
-      />
+      {accounts == lawyerAddress ? (
+        <Release
+          release={release}
+          balance={balance}
+          neededAmount={neededAmount}
+        />
+        ) : null }
 
       <br />
       <Footer />
