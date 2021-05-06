@@ -1,7 +1,7 @@
-wallet/build
-wallet/node_modules
-wallet/.secrets.json
-wallet/client/src/contracts/
+multisig/build
+multisig/node_modules
+multisig/.secrets.json
+multisig/client/src/contracts/
 
 dex/build
 dex/node_modules
