@@ -55,9 +55,23 @@ function App() {
 
   return (
     <div>
-        <h1>Multisig Dapp</h1>
-        <Header approvers={approvers} quorum={quorum} />
-        <NewTransfer createTransfer={createTransfer} />
+        
+        <div className="text-center">
+          <h1>Multisig Dapp</h1>
+        </div>
+
+
+        <div class="container">
+          <div class="row align-items-start">
+            <div class="col">
+              <Header approvers={approvers} quorum={quorum} /> 
+            </div>
+            <div class="col">
+              <NewTransfer createTransfer={createTransfer} />
+            </div>
+          </div>
+        </div>
+    
         <TransferList transfers={transfers} approveTransfer={approveTransfer}/>
     </div>
   );
