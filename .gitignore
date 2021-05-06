@@ -1,12 +1,15 @@
 wallet/build
 wallet/node_modules
 wallet/.secrets.json
+wallet/client/src/contracts/
 
 dex/build
 dex/node_modules
+dex/client/src/contracts/
 
 escrow/build
 escrow/node_modules
+escrow/client/src/contracts/
 
 TODO
 starting_project
