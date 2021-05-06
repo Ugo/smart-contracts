@@ -1,4 +1,4 @@
-# escrow
+# Escrow contract
 
 Simple smart contract acting as an escrow. 
 The contract is deployed with the amount that should be locked in the contract. There are three actors involved:
@@ -8,10 +8,15 @@ The contract is deployed with the amount that should be locked in the contract. 
 
 Depending on who is connected and the roles, some actions will be available or not to the user.
 
-This is what the payer will see in the dapp when he connects:
-![payer dashboard](https://raw.githubusercontent.com/Ugo/smart-contracts/main/escrow/images/escrow2.png)
+This is what the payer will see:
+-------------------
 He can only deposit more money.
+![payer dashboard](https://raw.githubusercontent.com/Ugo/smart-contracts/main/escrow/images/escrow2.png)
 
-And this is what the lawyer will see in the dapp. He cannot deposit any money, just release the money if the required amount is reached.
+
+
+This is what the lawyer will see: 
+-------------------
+He cannot deposit any money, just release the money if the required amount is reached.
 ![lawyer dashboard](https://raw.githubusercontent.com/Ugo/smart-contracts/main/escrow/images/escrow1.png)
 
